@@ -1,0 +1,23 @@
+{% extends 'feed/layout.html' %}
+{% block title %}Explorar{% endblock %}
+{% block content %}
+<h2>Explorar</h2>
+<div class="row">
+    {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a href="{% url 'feed:post_detail' post.pk %}">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="Imagen">
+                </a>
+                <div class="card-body">
+                    <a href="{% url 'feed:profile' post.author.username %}">
+                        {{ post.author.username }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay publicaciones.</p>
+    {% endfor %}
+</div>
+{% endblock %}

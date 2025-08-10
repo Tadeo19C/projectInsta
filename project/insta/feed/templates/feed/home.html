@@ -1,0 +1,26 @@
+{% extends 'feed/layout.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<h2>Inicio</h2>
+{% if posts %}
+    {% for post in posts %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="{% url 'feed:profile' post.author.username %}">
+                    {{ post.author.username }}
+                </a>
+            </div>
+            <img src="{{ post.image.url }}" class="card-img-top" alt="Imagen">
+            <div class="card-body">
+                <p>{{ post.caption }}</p>
+                <a href="{% url 'feed:like_post' post.pk %}" class="btn btn-sm btn-outline-primary">
+                    ❤️ {{ post.likes.count }}
+                </a>
+                <a href="{% url 'feed:post_detail' post.pk %}" class="btn btn-sm btn-outline-secondary">Ver</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No hay publicaciones aún.</p>
+{% endif %}
+{% endblock %}
